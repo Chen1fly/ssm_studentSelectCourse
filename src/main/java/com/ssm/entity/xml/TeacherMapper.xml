@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.ssm.entity.Teacher">
+    <!--@mbg.generated-->
+    <!--@Table s_teacher-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="clazz_id" jdbcType="INTEGER" property="clazzId" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="photo" jdbcType="BLOB" property="photo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, sn, `name`, `password`, clazz_id, sex, mobile, qq, photo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from s_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from s_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ssm.entity.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into s_teacher (sn, `name`, `password`, 
+      clazz_id, sex, mobile, 
+      qq, photo)
+    values (#{sn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{clazzId,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{photo,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ssm.entity.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into s_teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="clazzId != null">
+        clazz_id,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="clazzId != null">
+        #{clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.entity.Teacher">
+    <!--@mbg.generated-->
+    update s_teacher
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="clazzId != null">
+        clazz_id = #{clazzId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=BLOB},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.entity.Teacher">
+    <!--@mbg.generated-->
+    update s_teacher
+    set sn = #{sn,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      clazz_id = #{clazzId,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=BLOB}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectNameAndPassword" resultMap="BaseResultMap">
+      select * from s_teacher where name = #{account,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    </select>
+  <delete id="deleteByIds">
+    delete from s_teacher where id in('${ids}')
+  </delete>
+  <select id="getTeacherList" resultMap="BaseResultMap">
+    select * from s_teacher
+    <where>
+      <if test="teacher.name!=null and teacher.name!='' ">
+        `name` like '%${teacher.name}%'
+      </if>
+      <if test="teacher.clazzId!=0">
+        and clazz_id = #{teacher.clazzId,jdbcType=INTEGER}
+      </if>
+      <if test="teacher.id!=null and teacher.id!=0">
+        and id = #{teacher.id,jdbcType=INTEGER}
+      </if>
+    </where>
+    limit #{page.start,jdbcType=INTEGER},#{page.pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getTeacherListTotal" resultType="int">
+    select count(*)as total from s_teacher
+    <where>
+      <if test="teacher.name!=null and teacher.name!='' ">
+        `name` like '%${teacher.name}%'
+      </if>
+      <if test="teacher.clazzId!=0">
+        and clazz_id = #{teacher.clazzId,jdbcType=INTEGER}
+      </if>
+      <if test="teacher.id!=null and teacher.id!=0">
+        and id = #{teacher.id,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>
