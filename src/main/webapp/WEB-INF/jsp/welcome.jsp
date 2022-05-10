@@ -10,7 +10,7 @@
 
 <div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " >
 	<p style="font-size: 25px; line-height: 30px; height: 30px;">欢迎使用学生成绩管理系统</p>
-  	<p>开发人员：贾巴拉日</p>
+  	<p>开发人员：Chen</p>
   	<hr />
   	<h2>系统环境</h2>
   	<p>系统环境：Windows</p>
